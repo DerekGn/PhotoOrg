@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PhotoOrg": {
+      "commandName": "Project",
+      "commandLineArgs": "E:\\PhotoPrismBackup E:\\PhotoPrismBackup-moved\\"
+    }
+  }
+}
