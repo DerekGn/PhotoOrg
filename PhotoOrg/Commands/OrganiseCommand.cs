@@ -133,6 +133,21 @@ namespace PhotoOrg.Commands
             [DefaultValue(true)]
             [CommandOption("-o|--overwrite")]
             public bool Overwrite { get; init; }
+
+            public override ValidationResult Validate()
+            {
+                if(!Path.Exists(SourcePath))
+                {
+                    return ValidationResult.Error($"{nameof(SourcePath)} does not exist");
+                }
+
+                if (!Path.Exists(TargetPath))
+                {
+                    return ValidationResult.Error($"{nameof(TargetPath)} does not exist");
+                }
+
+                return ValidationResult.Success();
+            }
         }
     }
 }
