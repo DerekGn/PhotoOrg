@@ -123,11 +123,11 @@ namespace PhotoOrg.Commands
         public sealed class Settings : CommandSettings
         {
             [Description("Path to write files.")]
-            [CommandArgument(1, "[targetPath]")]
+            [CommandArgument(1, "<targetPath>")]
             public string? TargetPath { get; init; }
 
             [Description("Path to search.")]
-            [CommandArgument(0, "[sourcePath]")]
+            [CommandArgument(0, "<sourcePath>")]
             public string? SourcePath { get; init; }
 
             [DefaultValue(true)]
