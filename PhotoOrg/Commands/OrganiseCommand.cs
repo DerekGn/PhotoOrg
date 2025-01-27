@@ -24,7 +24,6 @@
 
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
-using MetadataExtractor.Util;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
@@ -43,7 +42,7 @@ namespace PhotoOrg.Commands
 
                     try
                     {
-                        var files = new DirectoryInfo(settings.SourcePath)
+                        var files = new DirectoryInfo(settings.SourcePath!)
                             .GetFiles();
 
                         task.MaxValue = files.Length;
@@ -74,15 +73,22 @@ namespace PhotoOrg.Commands
                 Total = files.Length
             };
 
+            if (!System.IO.Directory.Exists(settings.TargetPath))
+            {
+                System.IO.Directory.CreateDirectory(settings.TargetPath!);
+            }
+
+            var unprocessedPath = Path.Combine(settings.TargetPath!, "Unprocessed");
+
+            if (!System.IO.Directory.Exists(unprocessedPath))
+            {
+                System.IO.Directory.CreateDirectory(unprocessedPath);
+            }
+
             foreach (var file in files)
             {
                 try
                 {
-                    if(!System.IO.Directory.Exists(settings.TargetPath))
-                    {
-                        System.IO.Directory.CreateDirectory(settings.TargetPath!);
-                    }
-
                     IEnumerable<MetadataExtractor.Directory> directories = ImageMetadataReader.ReadMetadata(file.FullName);
 
                     var subIfdDirectory = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
