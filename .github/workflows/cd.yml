@@ -37,7 +37,7 @@ jobs:
           release_name="PhotoOrg-$tag-${{ matrix.target }}"
 
           # Build everything
-          dotnet publish src/PhotoOrg/PhotoOrg.csproj --self-contained --runtime "${{ matrix.target }}" -c Release -o "$release_name"
+          dotnet publish PhotoOrg/PhotoOrg.csproj --self-contained --runtime "${{ matrix.target }}" -c Release -o "$release_name"
 
           # Pack files
           if [ "${{ matrix.target }}" == "win-x64" ]; then
